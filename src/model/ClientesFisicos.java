@@ -7,6 +7,7 @@ package model;
 
 import error.ValidarException;
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 import util.Validacoes;
 
@@ -34,6 +37,9 @@ import util.Validacoes;
     @NamedQuery(name = "ClientesFisicos.findByCliDataNascimento", query = "SELECT c FROM ClientesFisicos c WHERE c.cliDataNascimento = :cliDataNascimento"),
     @NamedQuery(name = "ClientesFisicos.findByCliEmail", query = "SELECT c FROM ClientesFisicos c WHERE c.cliEmail = :cliEmail")})
 public class ClientesFisicos implements Serializable {
+    @Column(name = "cliDataNascimento")
+    @Temporal(TemporalType.DATE)
+    private Date cliDataNascimento;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -44,8 +50,6 @@ public class ClientesFisicos implements Serializable {
     private String cliNome;
     @Column(name = "cliSexo")
     private Character cliSexo;
-    @Column(name = "cliDataNascimento")
-    private Character cliDataNascimento;
     @Column(name = "cliEmail")
     private String cliEmail;
     @JoinColumn(name = "clientes_Id_Cliente", referencedColumnName = "Id_Cliente", insertable = false, updatable = false)
@@ -94,14 +98,6 @@ public class ClientesFisicos implements Serializable {
         this.cliSexo = cliSexo;
     }
 
-    public Character getCliDataNascimento() {
-        return cliDataNascimento;
-    }
-
-    public void setCliDataNascimento(Character cliDataNascimento) {
-        
-        this.cliDataNascimento = cliDataNascimento;
-    }
 
     public String getCliEmail() {
         return cliEmail;
@@ -142,6 +138,14 @@ public class ClientesFisicos implements Serializable {
     @Override
     public String toString() {
         return "model.ClientesFisicos[ clientesIdCliente=" + clientesIdCliente + " ]";
+    }
+
+    public Date getCliDataNascimento() {
+        return cliDataNascimento;
+    }
+
+    public void setCliDataNascimento(Date cliDataNascimento) {
+        this.cliDataNascimento = cliDataNascimento;
     }
     
 }
