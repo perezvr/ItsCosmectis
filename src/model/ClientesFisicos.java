@@ -7,6 +7,7 @@ package model;
 
 import error.ValidarException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -95,6 +96,10 @@ public class ClientesFisicos implements Serializable {
         if (Validacoes.validaTextoVazio(cliSexo.toString())) {
             throw new ValidarException();
         }
+        if (cliSexo=='M' || cliSexo=='F') {
+        }else{
+            throw new ValidarException();
+        }
         this.cliSexo = cliSexo;
     }
 
@@ -103,7 +108,12 @@ public class ClientesFisicos implements Serializable {
         return cliEmail;
     }
 
-    public void setCliEmail(String cliEmail) {
+    public void setCliEmail(String cliEmail) throws ValidarException {
+        if (!Validacoes.isEmailValid(cliEmail)) {
+            if (!cliEmail.trim().isEmpty()) {
+                throw new ValidarException();
+            }
+        }
         this.cliEmail = cliEmail;
     }
 
@@ -144,7 +154,12 @@ public class ClientesFisicos implements Serializable {
         return cliDataNascimento;
     }
 
-    public void setCliDataNascimento(Date cliDataNascimento) {
+    public void setCliDataNascimento(Date cliDataNascimento) throws ValidarException {
+        if (cliDataNascimento.after(new Date())) {
+            throw new ValidarException();
+        }else if (cliDataNascimento.before(new Date(0, 0, 1))) {
+            throw  new ValidarException();
+        }
         this.cliDataNascimento = cliDataNascimento;
     }
     

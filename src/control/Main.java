@@ -6,6 +6,7 @@
 package control;
 
 import error.ValidarException;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Clientes;
@@ -23,6 +24,8 @@ public class Main {
         ClientesFisicos cliFis = new ClientesFisicos();
         cliente.setCliTipoCliente('F');
         cliFis.setCliNome("Maurílio");
+        cliFis.setCliSexo('M');
+        cliFis.setCliDataNascimento(new Date("01/01/2014"));
         ControleCliente.gravaClienteFisico(cliente, cliFis);
     }
 }
