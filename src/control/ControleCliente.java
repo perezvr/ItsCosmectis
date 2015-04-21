@@ -7,7 +7,6 @@ package control;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import model.Clientes;
 import model.ClientesFisicos;
 import model.ClientesJuridicos;
 import model.Factory;
@@ -20,34 +19,46 @@ public abstract class ControleCliente {
 
     /**
      *
-     * @param cliente
      * @param clienteFis
+     * @return boolean se cadastrou;
      */
-    public static void gravaClienteFisico(Clientes cliente, ClientesFisicos clienteFis) {
+    public static boolean gravaClienteFisico(ClientesFisicos clienteFis) {
         EntityManager em = Factory.getConn();
-        em.getTransaction().begin();
-        cliente.setIdCliente(ControleCliente.lastIdCliente());
-        clienteFis.setClientesIdCliente(cliente.getIdCliente());
-        em.persist(cliente);
-        clienteFis.setClientesIdCliente(cliente.getIdCliente());
-        em.persist(clienteFis);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            int id = ControleCliente.lastIdCliente();
+            clienteFis.getClientes().setIdCliente(id);
+            clienteFis.setClientesIdCliente(id);
+            clienteFis.setClientesIdCliente(id);
+            em.persist(clienteFis);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            return false;
+        }
+        return true;
     }
 
     /**
      *
-     * @param cliente
      * @param clienteJur
+     * @return boolean se cadastrou;
      */
-    public static void gravaClienteJuridico(Clientes cliente, ClientesJuridicos clienteJur) {
+    public static boolean gravaClienteJuridico(ClientesJuridicos clienteJur) {
         EntityManager em = Factory.getConn();
-        em.getTransaction().begin();
-        cliente.setIdCliente(ControleCliente.lastIdCliente());
-        clienteJur.setClientesIdCliente(cliente.getIdCliente());
-        em.persist(cliente);
-        clienteJur.setClientesIdCliente(cliente.getIdCliente());
-        em.persist(clienteJur);
-        em.getTransaction().commit();
+        try {
+            em.getTransaction().begin();
+            int id = ControleCliente.lastIdCliente();
+            clienteJur.getClientes().setIdCliente(id);
+            clienteJur.setClientesIdCliente(id);
+            clienteJur.setClientesIdCliente(id);
+            em.persist(clienteJur);
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            em.getTransaction().rollback();
+            return false;
+        }
+        return true;
     }
 
     private static int lastIdCliente() {

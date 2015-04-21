@@ -7,11 +7,8 @@ package control;
 
 import error.ValidarException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.Clientes;
 import model.ClientesFisicos;
-import model.ClientesJuridicos;
 
 /**
  *
@@ -23,9 +20,10 @@ public class Main {
         Clientes cliente = new Clientes();
         ClientesFisicos cliFis = new ClientesFisicos();
         cliente.setCliTipoCliente('F');
-        cliFis.setCliNome("Maurílio");
+        cliFis.setCliNome("Maurílio2");
         cliFis.setCliSexo('M');
         cliFis.setCliDataNascimento(new Date("01/01/2014"));
-        ControleCliente.gravaClienteFisico(cliente, cliFis);
+        cliFis.setClientes(cliente);
+        ControleCliente.gravaClienteFisico(cliFis);
     }
 }

@@ -60,7 +60,7 @@ public class ClientesJuridicos implements Serializable {
     @Column(name = "cliEmail")
     private String cliEmail;
     @JoinColumn(name = "clientes_Id_Cliente", referencedColumnName = "Id_Cliente", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.PERSIST)
     private Clientes clientes;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "clientesjuridicosclientesIdCliente")
     private List<ContatosClientesJuridicos> contatosClientesJuridicosList;

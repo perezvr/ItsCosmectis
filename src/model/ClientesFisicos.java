@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,6 +39,10 @@ import util.Validacoes;
     @NamedQuery(name = "ClientesFisicos.findByCliDataNascimento", query = "SELECT c FROM ClientesFisicos c WHERE c.cliDataNascimento = :cliDataNascimento"),
     @NamedQuery(name = "ClientesFisicos.findByCliEmail", query = "SELECT c FROM ClientesFisicos c WHERE c.cliEmail = :cliEmail")})
 public class ClientesFisicos implements Serializable {
+    @Column(name = "cliRG")
+    private String cliRG;
+    @Column(name = "cliCPF")
+    private String cliCPF;
     @Column(name = "cliDataNascimento")
     @Temporal(TemporalType.DATE)
     private Date cliDataNascimento;
@@ -54,7 +59,7 @@ public class ClientesFisicos implements Serializable {
     @Column(name = "cliEmail")
     private String cliEmail;
     @JoinColumn(name = "clientes_Id_Cliente", referencedColumnName = "Id_Cliente", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.PERSIST)
     private Clientes clientes;
 
     public ClientesFisicos() {
@@ -161,6 +166,22 @@ public class ClientesFisicos implements Serializable {
             throw  new ValidarException();
         }
         this.cliDataNascimento = cliDataNascimento;
+    }
+
+    public String getCliRG() {
+        return cliRG;
+    }
+
+    public void setCliRG(String cliRG) {
+        this.cliRG = cliRG;
+    }
+
+    public String getCliCPF() {
+        return cliCPF;
+    }
+
+    public void setCliCPF(String cliCPF) {
+        this.cliCPF = cliCPF;
     }
     
 }
