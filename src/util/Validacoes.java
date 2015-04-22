@@ -55,4 +55,14 @@ public abstract class Validacoes {
     public static boolean validaTextoVazio(String texto){
         return texto.isEmpty();
     }
+    
+    public static boolean validaLenghtTexto(String texto,int lenght){
+        return texto.length() == lenght;
+    }
+    
+    public static boolean validaLenghtMinimoTexto(String texto, int lenght){
+        return texto.length() >= lenght;
+    }
+    
+   
 }

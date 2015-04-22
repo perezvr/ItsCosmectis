@@ -5,6 +5,7 @@
  */
 package model;
 
+import error.ValidarException;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import util.Validacoes;
 
 /**
  *
@@ -79,7 +81,11 @@ public class Telefones implements Serializable {
         return telTipoTelefone;
     }
 
-    public void setTelTipoTelefone(String telTipoTelefone) {
+    public void setTelTipoTelefone(String telTipoTelefone) throws ValidarException{
+        if (telTipoTelefone.trim().equals("R") || telTipoTelefone.trim().equals("M") || telTipoTelefone.trim().equals("C") || telTipoTelefone.trim().equals("O")) {           
+        } else{
+            throw  new ValidarException();
+        }
         this.telTipoTelefone = telTipoTelefone;
     }
 
@@ -87,7 +93,10 @@ public class Telefones implements Serializable {
         return telDDD;
     }
 
-    public void setTelDDD(String telDDD) {
+    public void setTelDDD(String telDDD) throws ValidarException{
+        if (!Validacoes.validaLenghtTexto(telDDD,2)) {
+            throw new ValidarException();
+        }
         this.telDDD = telDDD;
     }
 
@@ -95,7 +104,10 @@ public class Telefones implements Serializable {
         return telNumero;
     }
 
-    public void setTelNumero(String telNumero) {
+    public void setTelNumero(String telNumero) throws ValidarException{
+        if ((!Validacoes.validaLenghtTexto(telNumero, 8) || !Validacoes.validaLenghtTexto(telNumero, 9))) {
+            throw new ValidarException();
+        }
         this.telNumero = telNumero;
     }
 

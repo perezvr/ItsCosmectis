@@ -5,6 +5,7 @@
  */
 package model;
 
+import error.ValidarException;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,6 +17,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import util.Validacoes;
 
 /**
  *
@@ -34,6 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Enderecos.findByEndBairro", query = "SELECT e FROM Enderecos e WHERE e.endBairro = :endBairro"),
     @NamedQuery(name = "Enderecos.findByEndCep", query = "SELECT e FROM Enderecos e WHERE e.endCep = :endCep")})
 public class Enderecos implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -77,7 +80,10 @@ public class Enderecos implements Serializable {
         return endLogradouro;
     }
 
-    public void setEndLogradouro(String endLogradouro) {
+    public void setEndLogradouro(String endLogradouro) throws ValidarException {
+        if (!Validacoes.validaLenghtMinimoTexto(endLogradouro, 3)) {
+            throw new ValidarException();
+        }
         this.endLogradouro = endLogradouro;
     }
 
@@ -85,7 +91,10 @@ public class Enderecos implements Serializable {
         return endNumero;
     }
 
-    public void setEndNumero(String endNumero) {
+    public void setEndNumero(String endNumero) throws ValidarException {
+        if (Validacoes.validaTextoVazio(endNumero)) {
+            throw new ValidarException();
+        }
         this.endNumero = endNumero;
     }
 
@@ -106,18 +115,31 @@ public class Enderecos implements Serializable {
     }
 
     public String getEndBairro() {
+
         return endBairro;
     }
 
-    public void setEndBairro(String endBairro) {
+    public void setEndBairro(String endBairro) throws ValidarException {
+        if (!Validacoes.validaLenghtMinimoTexto(endBairro, 3)) {
+            throw new ValidarException();
+        }
         this.endBairro = endBairro;
     }
 
     public String getEndCep() {
+
+        endCep = endCep.substring(0, 5) + "-" + endCep.substring(5, 3);
+
         return endCep;
     }
 
-    public void setEndCep(String endCep) {
+    public void setEndCep(String endCep) throws ValidarException {
+        if (!Validacoes.validaLenghtTexto(endCep, 8)) {
+            throw new ValidarException();
+        }
+
+        endCep = endCep.replace("-","");
+        
         this.endCep = endCep;
     }
 
@@ -161,5 +183,5 @@ public class Enderecos implements Serializable {
     public String toString() {
         return "model.Enderecos[ idEndereco=" + idEndereco + " ]";
     }
-    
+
 }

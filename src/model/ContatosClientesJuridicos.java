@@ -5,6 +5,7 @@
  */
 package model;
 
+import error.ValidarException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import util.Validacoes;
 
 /**
  *
@@ -76,7 +78,10 @@ public class ContatosClientesJuridicos implements Serializable {
         return ccjNome;
     }
 
-    public void setCcjNome(String ccjNome) {
+    public void setCcjNome(String ccjNome) throws ValidarException{
+        if (!Validacoes.validaLenghtMinimoTexto(ccjNome, 5)) {
+            throw new ValidarException();
+        }
         this.ccjNome = ccjNome;
     }
 
@@ -84,7 +89,10 @@ public class ContatosClientesJuridicos implements Serializable {
         return ccjSetor;
     }
 
-    public void setCcjSetor(String ccjSetor) {
+    public void setCcjSetor(String ccjSetor) throws ValidarException{
+        if (Validacoes.validaTextoVazio(ccjSetor)) {
+            throw new ValidarException();
+        }
         this.ccjSetor = ccjSetor;
     }
 
@@ -92,7 +100,13 @@ public class ContatosClientesJuridicos implements Serializable {
         return ccjEmail;
     }
 
-    public void setCcjEmail(String ccjEmail) {
+    public void setCcjEmail(String ccjEmail) throws ValidarException{
+        
+        if (!Validacoes.isEmailValid(ccjEmail)) {
+            if (!ccjEmail.trim().isEmpty()) {
+                throw new ValidarException();
+            }
+        }
         this.ccjEmail = ccjEmail;
     }
 

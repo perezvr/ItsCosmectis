@@ -87,9 +87,9 @@ public class ClientesFisicos implements Serializable {
     }
 
     public void setCliNome(String cliNome) throws ValidarException {
-        if (Validacoes.validaTextoVazio(cliNome)) {
+        if (!Validacoes.validaLenghtMinimoTexto(cliNome, 5)) {
             throw new ValidarException();
-        }
+        } 
         this.cliNome = cliNome;
     }
 
@@ -173,6 +173,10 @@ public class ClientesFisicos implements Serializable {
     }
 
     public void setCliRG(String cliRG) {
+        
+        cliRG = cliRG.replace(".", "");
+        cliRG = cliRG.replace("-", "");
+        
         this.cliRG = cliRG;
     }
 
@@ -180,7 +184,18 @@ public class ClientesFisicos implements Serializable {
         return cliCPF;
     }
 
-    public void setCliCPF(String cliCPF) {
+    public void setCliCPF(String cliCPF) throws ValidarException {
+        if (Validacoes.validaTextoVazio(cliCPF)) {
+            throw new ValidarException();
+        }
+        
+        if (Validacoes.isValidCPF(cliCPF)) {
+            throw new ValidarException();
+        }
+        
+        cliCPF = cliCPF.replace(".", "");
+        cliCPF = cliCPF.replace("-", "");
+        
         this.cliCPF = cliCPF;
     }
     
