@@ -31,6 +31,7 @@ import util.Validacoes;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "ContatosClientesJuridicos.findAll", query = "SELECT c FROM ContatosClientesJuridicos c"),
+    @NamedQuery(name = "ContatosClientesJuridicos.lastId", query = "SELECT max(c.idContatosClientesJuridicos c)"),
     @NamedQuery(name = "ContatosClientesJuridicos.findByIdContatoclientesjuridicos", query = "SELECT c FROM ContatosClientesJuridicos c WHERE c.idContatoclientesjuridicos = :idContatoclientesjuridicos"),
     @NamedQuery(name = "ContatosClientesJuridicos.findByCcjNome", query = "SELECT c FROM ContatosClientesJuridicos c WHERE c.ccjNome = :ccjNome"),
     @NamedQuery(name = "ContatosClientesJuridicos.findByCcjSetor", query = "SELECT c FROM ContatosClientesJuridicos c WHERE c.ccjSetor = :ccjSetor"),

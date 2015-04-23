@@ -29,7 +29,6 @@ public abstract class ControleCliente {
             int id = ControleCliente.lastIdCliente();
             clienteFis.getClientes().setIdCliente(id);
             clienteFis.setClientesIdCliente(id);
-            clienteFis.setClientesIdCliente(id);
             em.persist(clienteFis);
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -50,7 +49,6 @@ public abstract class ControleCliente {
             em.getTransaction().begin();
             int id = ControleCliente.lastIdCliente();
             clienteJur.getClientes().setIdCliente(id);
-            clienteJur.setClientesIdCliente(id);
             clienteJur.setClientesIdCliente(id);
             em.persist(clienteJur);
             em.getTransaction().commit();

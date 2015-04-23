@@ -28,6 +28,7 @@ import util.Validacoes;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Enderecos.findAll", query = "SELECT e FROM Enderecos e"),
+    @NamedQuery(name = "Enderecos.lastId", query = "SELECT max(e.idEndereco) FROM Enderecos e"),
     @NamedQuery(name = "Enderecos.findByIdEndereco", query = "SELECT e FROM Enderecos e WHERE e.idEndereco = :idEndereco"),
     @NamedQuery(name = "Enderecos.findByEndLogradouro", query = "SELECT e FROM Enderecos e WHERE e.endLogradouro = :endLogradouro"),
     @NamedQuery(name = "Enderecos.findByEndNumero", query = "SELECT e FROM Enderecos e WHERE e.endNumero = :endNumero"),
@@ -138,8 +139,8 @@ public class Enderecos implements Serializable {
             throw new ValidarException();
         }
 
-        endCep = endCep.replace("-","");
-        
+        endCep = endCep.replace("-", "");
+
         this.endCep = endCep;
     }
 

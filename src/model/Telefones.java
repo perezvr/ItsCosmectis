@@ -28,12 +28,14 @@ import util.Validacoes;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Telefones.findAll", query = "SELECT t FROM Telefones t"),
+    @NamedQuery(name = "Telefones.lastId", query = "SELECT max(t.idTelefone) FROM Telefones t"),
     @NamedQuery(name = "Telefones.findByIdTelefone", query = "SELECT t FROM Telefones t WHERE t.idTelefone = :idTelefone"),
     @NamedQuery(name = "Telefones.findByTelTipoTelefone", query = "SELECT t FROM Telefones t WHERE t.telTipoTelefone = :telTipoTelefone"),
     @NamedQuery(name = "Telefones.findByTelDDD", query = "SELECT t FROM Telefones t WHERE t.telDDD = :telDDD"),
     @NamedQuery(name = "Telefones.findByTelNumero", query = "SELECT t FROM Telefones t WHERE t.telNumero = :telNumero"),
     @NamedQuery(name = "Telefones.findByTelRamal", query = "SELECT t FROM Telefones t WHERE t.telRamal = :telRamal")})
 public class Telefones implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -81,10 +83,10 @@ public class Telefones implements Serializable {
         return telTipoTelefone;
     }
 
-    public void setTelTipoTelefone(String telTipoTelefone) throws ValidarException{
-        if (telTipoTelefone.trim().equals("R") || telTipoTelefone.trim().equals("M") || telTipoTelefone.trim().equals("C") || telTipoTelefone.trim().equals("O")) {           
-        } else{
-            throw  new ValidarException();
+    public void setTelTipoTelefone(String telTipoTelefone) throws ValidarException {
+        if (telTipoTelefone.trim().equals("R") || telTipoTelefone.trim().equals("M") || telTipoTelefone.trim().equals("C") || telTipoTelefone.trim().equals("O")) {
+        } else {
+            throw new ValidarException();
         }
         this.telTipoTelefone = telTipoTelefone;
     }
@@ -93,8 +95,8 @@ public class Telefones implements Serializable {
         return telDDD;
     }
 
-    public void setTelDDD(String telDDD) throws ValidarException{
-        if (!Validacoes.validaLenghtTexto(telDDD,2)) {
+    public void setTelDDD(String telDDD) throws ValidarException {
+        if (!Validacoes.validaLenghtTexto(telDDD, 2)) {
             throw new ValidarException();
         }
         this.telDDD = telDDD;
@@ -104,7 +106,7 @@ public class Telefones implements Serializable {
         return telNumero;
     }
 
-    public void setTelNumero(String telNumero) throws ValidarException{
+    public void setTelNumero(String telNumero) throws ValidarException {
         if ((!Validacoes.validaLenghtTexto(telNumero, 8) || !Validacoes.validaLenghtTexto(telNumero, 9))) {
             throw new ValidarException();
         }
@@ -159,5 +161,5 @@ public class Telefones implements Serializable {
     public String toString() {
         return "model.Telefones[ idTelefone=" + idTelefone + " ]";
     }
-    
+
 }
